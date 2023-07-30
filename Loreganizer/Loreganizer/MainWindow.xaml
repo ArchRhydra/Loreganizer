@@ -7,6 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
 
+                <Button Content="File" Grid.Column="0" BorderThickness="0"/>
+                <Button Content="Tools" Grid.Column="1" BorderThickness="0"/>
+                <Rectangle Grid.Column="2" Fill="LightGray"/>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Window>

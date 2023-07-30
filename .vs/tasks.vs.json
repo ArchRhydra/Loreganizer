@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-hello_world",
+      "appliesTo": "hello_world.cs",
+      "type": "launch"
+    }
+  ]
+}
