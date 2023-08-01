@@ -27,6 +27,8 @@ namespace Loreganizer
         private UIElement _originalElement;
         private double _originalLeft;
         private double _originalTop;
+        private double _newLeft;
+        private double _newTop;
         private Point _startPoint;
         private Canvas _contentCanvas;
 
@@ -100,8 +102,8 @@ namespace Loreganizer
 
                 if(done == false)
                 {
-                    Canvas.SetTop(_originalElement, _originalTop);
-                    Canvas.SetLeft(_originalElement, _originalLeft);
+                    Canvas.SetTop(_originalElement, _originalTop + _newTop);
+                    Canvas.SetLeft(_originalElement, _originalLeft + _newLeft);
                 }
                 
             }
@@ -111,6 +113,7 @@ namespace Loreganizer
 
         private void contentCanvas_PreviewMouseMove(object sender, MouseEventArgs e)
         {
+            Debug.WriteLine("Moving");
             if (_isDown)
             {
                 if ((_isDragging == false) && ((Math.Abs(e.GetPosition(_contentCanvas).X - _startPoint.X) > SystemParameters.MinimumHorizontalDragDistance) || (Math.Abs(e.GetPosition(_contentCanvas).Y - _startPoint.Y) > SystemParameters.MinimumVerticalDragDistance)))
@@ -135,6 +138,9 @@ namespace Loreganizer
         private void DragMoved()
         {
             var currentPosition = Mouse.GetPosition(_contentCanvas);
+
+            _newLeft = currentPosition.X - _startPoint.X;
+            _newTop = currentPosition.Y - _startPoint.Y;
 
         }
 
