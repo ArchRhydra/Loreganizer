@@ -9,12 +9,7 @@
     Width="800"
     Height="450"
     mc:Ignorable="d">
-    <Grid x:Name="mainGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
+    <StackPanel x:Name="mainPanel">
         <!--  Header Grid  -->
         <Grid>
             <Grid.ColumnDefinitions>
@@ -37,9 +32,8 @@
             <Rectangle Grid.Column="2" Fill="LightGray" />
         </Grid>
 
-        <!--  Content Grid (place dynamic TextBox here)  -->
-        <Grid x:Name="contentGrid" Grid.Row="1">
-            <!--  Add any other controls you want here  -->
-        </Grid>
-    </Grid>
+        <Canvas x:Name="contentCanvas" Height="415">
+
+        </Canvas>
+    </StackPanel>
 </Window>

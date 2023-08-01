@@ -28,21 +28,23 @@ namespace Loreganizer
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             // Create a new TextBox
-            TextBox newTextBox = new TextBox();
+            TextBox textBox = new TextBox();
 
-            // Add any properties you want to set for the TextBox here
-            newTextBox.Width = 150;
-            newTextBox.Margin = new Thickness(5);
+            // Set some properties for the TextBox
+            textBox.Width = 150;
+            textBox.Height = 30;
+            textBox.TextAlignment = TextAlignment.Center;
 
-            // Set the alignment to center (optional)
-            newTextBox.HorizontalAlignment = HorizontalAlignment.Center;
-            newTextBox.VerticalAlignment = VerticalAlignment.Center;
+            // Calculate the center of the Canvas
+            double centerX = contentCanvas.ActualWidth / 2;
+            double centerY = contentCanvas.ActualHeight / 2;
 
-            // Add the TextBox to the contentGrid
-            contentGrid.Children.Add(newTextBox);
+            // Set the position of the TextBox to center it on the Canvas
+            Canvas.SetLeft(textBox, centerX - textBox.Width / 2);
+            Canvas.SetTop(textBox, centerY - textBox.Height / 2);
 
-            // Optionally, you can set focus on the new TextBox
-            newTextBox.Focus();
+            // Add the TextBox to the Canvas
+            contentCanvas.Children.Add(textBox);
         }
     }
 }
