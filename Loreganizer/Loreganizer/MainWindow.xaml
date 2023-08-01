@@ -32,8 +32,6 @@
             <Rectangle Grid.Column="2" Fill="LightGray" />
         </Grid>
 
-        <Canvas x:Name="contentCanvas" Height="415">
-
-        </Canvas>
+        
     </StackPanel>
 </Window>
