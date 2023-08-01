@@ -20,6 +20,13 @@ namespace Loreganizer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool _isDown;
+        private bool _isDragging;
+        private double _originalLeft;
+        private double _originalTop;
+        private Point _startPoint;
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -46,5 +53,12 @@ namespace Loreganizer
             // Add the TextBox to the Canvas
             contentCanvas.Children.Add(textBox);
         }
+
+        private void MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            object MovingObject = null;
+        }
+
+
     }
 }
