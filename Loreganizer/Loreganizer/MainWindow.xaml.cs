@@ -143,6 +143,8 @@ namespace Loreganizer
             _newLeft = currentPosition.X - _startPoint.X;
             _newTop = currentPosition.Y - _startPoint.Y;
 
+            Canvas.SetLeft(_originalElement, _originalLeft + _newLeft);
+            Canvas.SetTop(_originalElement, _originalTop + _newTop);
         }
 
         private void contentCanvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
