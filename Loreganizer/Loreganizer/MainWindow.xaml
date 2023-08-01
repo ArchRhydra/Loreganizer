@@ -32,6 +32,6 @@
             <Rectangle Grid.Column="2" Fill="LightGray" />
         </Grid>
 
-        
+
     </StackPanel>
 </Window>

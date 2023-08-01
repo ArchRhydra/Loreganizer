@@ -42,6 +42,7 @@ namespace Loreganizer
         public void OnPageLoad(object sender, RoutedEventArgs e)
         {
             _contentCanvas = new Canvas();
+            _contentCanvas.Height = 415;
             var tb = new TextBox { Text = "Dewit" };
             Canvas.SetTop(tb, 0);
             Canvas.SetLeft(tb, 0);
