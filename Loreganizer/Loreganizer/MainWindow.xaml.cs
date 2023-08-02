@@ -152,6 +152,9 @@ namespace Loreganizer
             Debug.WriteLine("Down");
             if (e.Source == _contentCanvas)
             {
+            }
+            else
+            {
                 _isDown = true;
                 _startPoint = e.GetPosition(_contentCanvas);
                 _originalElement = e.Source as UIElement;
