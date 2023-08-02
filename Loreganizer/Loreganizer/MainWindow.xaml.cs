@@ -24,13 +24,13 @@ namespace Loreganizer
     {
         private bool _isDown;
         private bool _isDragging;
-        private UIElement _originalElement;
+        private UIElement? _originalElement;
         private double _originalLeft;
         private double _originalTop;
         private double _newLeft;
         private double _newTop;
         private Point _startPoint;
-        private Canvas _contentCanvas;
+        private Canvas? _contentCanvas;
 
 
         public MainWindow()
@@ -150,10 +150,7 @@ namespace Loreganizer
         private void contentCanvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Debug.WriteLine("Down");
-            if(e.Source == _contentCanvas)
-            {
-            }
-            else
+            if (e.Source == _contentCanvas)
             {
                 _isDown = true;
                 _startPoint = e.GetPosition(_contentCanvas);
