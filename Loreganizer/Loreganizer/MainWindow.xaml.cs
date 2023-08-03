@@ -31,6 +31,7 @@ namespace Loreganizer
         private double _newTop;
         private Point _startPoint;
         private Canvas? _contentCanvas;
+        private TBAdorner _overlayElement;
 
 
         public MainWindow()
@@ -100,7 +101,7 @@ namespace Loreganizer
             Mouse.Capture(null);
             if (_isDragging)
             {
-
+                AdornerLayer.GetAdornerLayer(_overlayElement.AdornedElement).Remove(_overlayElement);
                 if(done == false)
                 {
                     Canvas.SetTop(_originalElement, _originalTop + _newTop);
@@ -133,6 +134,10 @@ namespace Loreganizer
             _isDragging = true;
             _originalLeft = Canvas.GetLeft(_originalElement);
             _originalTop = Canvas.GetTop(_originalElement);
+
+            _overlayElement = new TBAdorner(_originalElement);
+            var layer = AdornerLayer.GetAdornerLayer(_originalElement);
+            layer.Add(_overlayElement);
 
         }
 
