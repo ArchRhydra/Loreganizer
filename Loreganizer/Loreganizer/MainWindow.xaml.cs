@@ -89,10 +89,22 @@ namespace Loreganizer
         private void contentCanvas_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             Debug.WriteLine("Up");
+            if (!_isDragging)
+            {
+                Debug.WriteLine("Clicked");
+                _overlayElement = new TBAdorner(_originalElement);
+                var layer = AdornerLayer.GetAdornerLayer(_originalElement);
+                layer.Add(_overlayElement);
+            }
             if (_isDown)
             {
                 DragFinished(false);
                 e.Handled = true;
+            }
+            if(e.Source == _contentCanvas)
+            {
+                Debug.WriteLine("canvas");
+                DragFinished(true);
             }
         }
 
@@ -115,16 +127,17 @@ namespace Loreganizer
 
         private void contentCanvas_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            Debug.WriteLine("Moving");
             if (_isDown)
             {
                 if ((_isDragging == false) && ((Math.Abs(e.GetPosition(_contentCanvas).X - _startPoint.X) > SystemParameters.MinimumHorizontalDragDistance) || (Math.Abs(e.GetPosition(_contentCanvas).Y - _startPoint.Y) > SystemParameters.MinimumVerticalDragDistance)))
                 {
                     DragStarted();
+                    Debug.WriteLine("Drag Started");
                 }
                 if (_isDragging)
                 {
                     DragMoved();
+                    Debug.WriteLine("Moving");
                 }
             }
         }
@@ -157,26 +170,10 @@ namespace Loreganizer
             Debug.WriteLine("Down");
             if (e.Source == _contentCanvas)
             {
-
+                
             }
             else
             {
-                // If we click on a textbox
-                if(e.Source is TextBox textBox){
-
-                    // Turn on the adorner for the selected TextBox
-                    if (_overlayElement != null)
-                    {
-                        AdornerLayer.GetAdornerLayer(_overlayElement.AdornedElement)?.Remove(_overlayElement);
-                    }
-
-                    _originalElement = textBox;
-                    _overlayElement = new TBAdorner(_originalElement);
-                    var layer = AdornerLayer.GetAdornerLayer(_originalElement);
-                    layer?.Add(_overlayElement);
-
-                }
-
                 _isDown = true;
                 _startPoint = e.GetPosition(_contentCanvas);
                 _originalElement = e.Source as UIElement;
@@ -184,6 +181,7 @@ namespace Loreganizer
                 e.Handled = true;
             }
         }
+
 
     }
 }
