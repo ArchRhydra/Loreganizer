@@ -97,6 +97,10 @@ namespace Loreganizer
             }
             else if (!_isDragging && !_isCanvas)
             {
+                if(_overlayElement != null)
+                {
+                    AdornerLayer.GetAdornerLayer(_overlayElement.AdornedElement).Remove(_overlayElement);
+                }
                 Debug.WriteLine("Clicked");
                 _overlayElement = new TBAdorner(_originalElement);
                 var layer = AdornerLayer.GetAdornerLayer(_originalElement);
@@ -148,7 +152,10 @@ namespace Loreganizer
             _isDragging = true;
             _originalLeft = Canvas.GetLeft(_originalElement);
             _originalTop = Canvas.GetTop(_originalElement);
-
+            if (_overlayElement != null)
+            {
+                AdornerLayer.GetAdornerLayer(_overlayElement.AdornedElement).Remove(_overlayElement);
+            }
             _overlayElement = new TBAdorner(_originalElement);
             var layer = AdornerLayer.GetAdornerLayer(_originalElement);
             layer.Add(_overlayElement);
@@ -173,7 +180,7 @@ namespace Loreganizer
             {
                 if(_overlayElement != null)
                 {
-                    AdornerLayer.GetAdornerLayer(_overlayElement?.AdornedElement).Remove(_overlayElement);
+                    AdornerLayer.GetAdornerLayer(_overlayElement.AdornedElement).Remove(_overlayElement);
                     _isCanvas = true;
                 }
             }
