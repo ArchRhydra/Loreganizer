@@ -157,9 +157,26 @@ namespace Loreganizer
             Debug.WriteLine("Down");
             if (e.Source == _contentCanvas)
             {
+
             }
             else
             {
+                // If we click on a textbox
+                if(e.Source is TextBox textBox){
+
+                    // Turn on the adorner for the selected TextBox
+                    if (_overlayElement != null)
+                    {
+                        AdornerLayer.GetAdornerLayer(_overlayElement.AdornedElement)?.Remove(_overlayElement);
+                    }
+
+                    _originalElement = textBox;
+                    _overlayElement = new TBAdorner(_originalElement);
+                    var layer = AdornerLayer.GetAdornerLayer(_originalElement);
+                    layer?.Add(_overlayElement);
+
+                }
+
                 _isDown = true;
                 _startPoint = e.GetPosition(_contentCanvas);
                 _originalElement = e.Source as UIElement;

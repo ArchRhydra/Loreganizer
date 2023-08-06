@@ -16,6 +16,7 @@ namespace Loreganizer
         private Rectangle _child;
         private double _leftOffset;
         private double _topOffset;
+        private bool _isClicked;
 
         public TBAdorner(UIElement adornedElement) : base(adornedElement)
         {
