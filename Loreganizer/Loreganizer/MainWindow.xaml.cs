@@ -24,6 +24,7 @@ namespace Loreganizer
     {
         private bool _isDown;
         private bool _isDragging;
+        private bool _isCanvas; //true when most recent mouse down event was the blank canvas space
         private UIElement? _originalElement;
         private double _originalLeft;
         private double _originalTop;
@@ -44,10 +45,11 @@ namespace Loreganizer
         {
             _contentCanvas = new Canvas();
             _contentCanvas.Height = 415;
+            _contentCanvas.Background = new SolidColorBrush(Colors.White);
             var tb = new TextBox { Text = "Dewit" };
             Canvas.SetTop(tb, 0);
             Canvas.SetLeft(tb, 0);
-            _contentCanvas.Children.Add(tb);
+            //_contentCanvas.Children.Add(tb);
             _contentCanvas.PreviewMouseLeftButtonDown += contentCanvas_PreviewMouseLeftButtonDown;
             _contentCanvas.PreviewMouseMove += contentCanvas_PreviewMouseMove;
             _contentCanvas.PreviewMouseLeftButtonUp += contentCanvas_PreviewMouseLeftButtonUp;
@@ -88,8 +90,12 @@ namespace Loreganizer
 
         private void contentCanvas_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Debug.WriteLine("Up");
-            if (!_isDragging)
+            Debug.WriteLine("Up " + sender);
+            if(_originalElement == null)
+            {
+
+            }
+            else if (!_isDragging && !_isCanvas)
             {
                 Debug.WriteLine("Clicked");
                 _overlayElement = new TBAdorner(_originalElement);
@@ -100,11 +106,6 @@ namespace Loreganizer
             {
                 DragFinished(false);
                 e.Handled = true;
-            }
-            if(e.Source == _contentCanvas)
-            {
-                Debug.WriteLine("canvas");
-                DragFinished(true);
             }
         }
 
@@ -167,14 +168,19 @@ namespace Loreganizer
 
         private void contentCanvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Debug.WriteLine("Down");
+            Debug.WriteLine("Down " + e.Source);
             if (e.Source == _contentCanvas)
             {
-                
+                if(_overlayElement != null)
+                {
+                    AdornerLayer.GetAdornerLayer(_overlayElement?.AdornedElement).Remove(_overlayElement);
+                    _isCanvas = true;
+                }
             }
             else
             {
                 _isDown = true;
+                _isCanvas = false;
                 _startPoint = e.GetPosition(_contentCanvas);
                 _originalElement = e.Source as UIElement;
                 _contentCanvas.CaptureMouse();
