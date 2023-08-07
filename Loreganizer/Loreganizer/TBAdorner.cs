@@ -36,6 +36,7 @@ namespace Loreganizer
             brush.BeginAnimation(Brush.OpacityProperty, animation);
 
             _child.Fill = brush;
+            IsHitTestVisible = false;
         }
 
         protected override int VisualChildrenCount => 1;
