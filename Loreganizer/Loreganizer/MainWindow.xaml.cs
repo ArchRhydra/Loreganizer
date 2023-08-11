@@ -63,7 +63,7 @@ namespace Loreganizer
             _contentCanvas.PreviewMouseMove += contentCanvas_PreviewMouseMove;
             _contentCanvas.PreviewMouseLeftButtonUp += contentCanvas_PreviewMouseLeftButtonUp;
             PreviewKeyDown += window1_PreviewKeyDown;
-            
+
             mainPanel.Children.Add(_contentCanvas);
         }
 
@@ -115,7 +115,7 @@ namespace Loreganizer
         private void contentCanvas_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             Debug.WriteLine("Left mb up for" + e.Source);
-            if(_originalElement == null)
+            if (_originalElement == null)
             {
 
             }
@@ -127,7 +127,7 @@ namespace Loreganizer
                 {
                     AdornerLayer.GetAdornerLayer(_overlayElement.AdornedElement).Remove(_overlayElement);
                 }
-                
+
                 // Adding adorner to the selected element
                 Debug.WriteLine("Left click");
                 _overlayElement = new TBAdorner(_originalElement);
@@ -156,14 +156,14 @@ namespace Loreganizer
             if (_isDragging)
             {
                 AdornerLayer.GetAdornerLayer(_overlayElement.AdornedElement).Remove(_overlayElement);
-                
+
                 Canvas.SetTop(_originalElement, _originalTop + _newTop);
                 Canvas.SetLeft(_originalElement, _originalLeft + _newLeft);
-                
-                
+
+
             }
             _isDragging = false;
-            _isDown = false; 
+            _isDown = false;
             Debug.WriteLine("Done dragging");
         }
 
@@ -245,7 +245,7 @@ namespace Loreganizer
             //if pressed on the blank space, deselect whatever is selected
             if (e.Source == _contentCanvas)
             {
-                if(_overlayElement != null)
+                if (_overlayElement != null)
                 {
                     AdornerLayer.GetAdornerLayer(_overlayElement.AdornedElement).Remove(_overlayElement);
                     _isCanvas = true;
