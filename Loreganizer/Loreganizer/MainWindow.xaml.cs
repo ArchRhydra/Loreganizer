@@ -25,6 +25,7 @@ namespace Loreganizer
         private bool _isDown;
         private bool _isDragging;
         private bool _isCanvas; //true when most recent mouse down event was the blank canvas space
+        private bool _panning;
         private UIElement? _originalElement;
         private double _originalLeft;
         private double _originalTop;
@@ -91,6 +92,21 @@ namespace Loreganizer
 
             // Add TextBox to Canvas
             _contentCanvas.Children.Add(textBox);
+        }
+
+        private void Pan_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (_panning)
+            {
+                _panning = false;
+                Cursor = Cursors.Arrow;
+            }
+            else
+            {
+                _panning = true;
+                Cursor = Cursors.Hand;
+            }
+            Debug.WriteLine("Pan " + _panning);
         }
 
         /*
@@ -174,7 +190,7 @@ namespace Loreganizer
          */
         private void contentCanvas_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (_isDown)
+            if (_isDown && _panning == false)
             {
                 //if drag has not yet been started, but mouse is being held and starting to move, start drag
                 if ((_isDragging == false) && ((Math.Abs(e.GetPosition(_contentCanvas).X - _startPoint.X) > SystemParameters.MinimumHorizontalDragDistance) || (Math.Abs(e.GetPosition(_contentCanvas).Y - _startPoint.Y) > SystemParameters.MinimumVerticalDragDistance)))
@@ -188,6 +204,9 @@ namespace Loreganizer
                     DragMoved();
                     Debug.WriteLine("Moving");
                 }
+            } else if(_isDown && _panning)
+            {
+                PanMoved();
             }
         }
 
@@ -232,6 +251,22 @@ namespace Loreganizer
             Canvas.SetTop(_originalElement, _originalTop + _newTop);
         }
 
+        private void PanMoved()
+        {
+            var currentPosition = Mouse.GetPosition(_contentCanvas);
+
+            _newLeft = currentPosition.X - _startPoint.X;
+            _newTop = currentPosition.Y - _startPoint.Y;
+
+            UIElementCollection children = _contentCanvas.Children;
+            foreach (UIElement tb in children)
+            {
+                Canvas.SetLeft(tb, Canvas.GetLeft(tb) + _newLeft);
+                Canvas.SetTop(tb, Canvas.GetTop(tb) + _newTop);
+            }
+            _startPoint = currentPosition;
+        }
+
         /*
          * contentCanvas_PreviewMouseLeftButtonDown
          * Triggers when mouse left button gets pushed down
@@ -249,6 +284,13 @@ namespace Loreganizer
                 {
                     AdornerLayer.GetAdornerLayer(_overlayElement.AdornedElement).Remove(_overlayElement);
                     _isCanvas = true;
+                }
+                if (_panning)
+                {
+                    _isDown = true;
+                    _startPoint = e.GetPosition(_contentCanvas);
+                    _contentCanvas.CaptureMouse();
+                    e.Handled = true;
                 }
             }
             //if pressed on something, make it the current _originalElement and mark appropriate flags
