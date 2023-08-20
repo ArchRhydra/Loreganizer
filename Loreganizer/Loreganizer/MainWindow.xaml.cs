@@ -31,6 +31,7 @@ namespace Loreganizer
         private double _originalTop;
         private double _newLeft;
         private double _newTop;
+        private Point _fromCenter; //coords are how far away from center the pan has gone
         private Point _startPoint;
         private Canvas? _contentCanvas;
         private TBAdorner _overlayElement;
@@ -107,6 +108,18 @@ namespace Loreganizer
                 Cursor = Cursors.Hand;
             }
             Debug.WriteLine("Pan " + _panning);
+        }
+
+        private void Recenter_Button_Click(object sender, RoutedEventArgs e)
+        {
+            UIElementCollection children = _contentCanvas.Children;
+            foreach (UIElement tb in children)
+            {
+                Canvas.SetLeft(tb, Canvas.GetLeft(tb) - _fromCenter.X);
+                Canvas.SetTop(tb, Canvas.GetTop(tb) - _fromCenter.Y);
+            }
+            _fromCenter.X = 0;
+            _fromCenter.Y = 0;
         }
 
         /*
@@ -257,6 +270,9 @@ namespace Loreganizer
 
             _newLeft = currentPosition.X - _startPoint.X;
             _newTop = currentPosition.Y - _startPoint.Y;
+
+            _fromCenter.X += _newLeft;
+            _fromCenter.Y += _newTop;
 
             UIElementCollection children = _contentCanvas.Children;
             foreach (UIElement tb in children)

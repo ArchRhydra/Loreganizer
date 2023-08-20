@@ -16,7 +16,8 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
 
             <Button
@@ -37,7 +38,14 @@
                 Click="Pan_Button_Click"
                 Content="Pan"
                 Cursor="Hand" />
-            <Rectangle Grid.Column="3" Fill="LightGray" />
+
+            <Button
+                Grid.Column="3"
+                BorderThickness="0"
+                Click="Recenter_Button_Click"
+                Content="Recenter"
+                Cursor="Hand" />
+            <Rectangle Grid.Column="4" Fill="LightGray" />
         </Grid>
 
 
