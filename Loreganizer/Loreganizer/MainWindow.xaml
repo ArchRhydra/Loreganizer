@@ -17,7 +17,8 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
             <Button
@@ -45,7 +46,20 @@
                 Click="Recenter_Button_Click"
                 Content="Recenter"
                 Cursor="Hand" />
-            <Rectangle Grid.Column="4" Fill="LightGray" />
+
+            <ComboBox
+                x:Name="scaleComboBox"
+                Grid.Column="4"
+                Cursor="Hand"
+                SelectedIndex="0"
+                SelectionChanged="ScaleComboBox_SelectionChanged">
+                <ComboBoxItem Content="Standard" />
+                <ComboBoxItem Content="Zoom In" />
+                <ComboBoxItem Content="Zoom Out" />
+            </ComboBox>
+
+
+            <Rectangle Grid.Column="5" Fill="LightGray" />
         </Grid>
 
 

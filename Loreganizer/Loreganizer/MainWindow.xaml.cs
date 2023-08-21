@@ -31,6 +31,7 @@ namespace Loreganizer
         private double _originalTop;
         private double _newLeft;
         private double _newTop;
+        private double _currentScale;
         private Point _fromCenter; //coords are how far away from center the pan has gone
         private Point _startPoint;
         private Canvas? _contentCanvas;
@@ -53,6 +54,7 @@ namespace Loreganizer
             _contentCanvas = new Canvas();
             _contentCanvas.Height = 415;
             _contentCanvas.Background = new SolidColorBrush(Colors.White);
+            _currentScale = 1.0;
 
             /* Block of code for having a text box placed upon opening
             var tb = new TextBox { Text = "Dewit" };
@@ -121,6 +123,55 @@ namespace Loreganizer
             _fromCenter.X = 0;
             _fromCenter.Y = 0;
         }
+
+        private void ScaleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+            string selectedItem = (comboBox.SelectedItem as ComboBoxItem)?.Content as string;
+
+            switch (selectedItem)
+            {
+                case "Standard":
+                    _currentScale = 1.0; // Reset to standard scale
+                    ApplyScale();
+                    break;
+                case "Zoom In":
+                    _currentScale = 1.5; // Increase scale by 50%
+                    ApplyScale();
+                    break;
+                case "Zoom Out":
+                    _currentScale = 0.5; // Reduce scale by 50%
+                    ApplyScale();
+                    break;
+            }
+        }
+
+        private void ApplyScale()
+        {
+            if (_contentCanvas != null)
+            {
+                double originalWidth = _contentCanvas.ActualWidth;
+                double originalHeight = _contentCanvas.ActualHeight;
+
+                _contentCanvas.LayoutTransform = new ScaleTransform(_currentScale, _currentScale);
+
+                double newWidth = _contentCanvas.ActualWidth;
+                double newHeight = _contentCanvas.ActualHeight;
+                double widthChange = newWidth - originalWidth;
+                double heightChange = newHeight - originalHeight;
+
+                _fromCenter.X -= widthChange / 2;
+                _fromCenter.Y -= heightChange / 2;
+
+                UIElementCollection children = _contentCanvas.Children;
+                foreach (UIElement tb in children)
+                {
+                    Canvas.SetLeft(tb, Canvas.GetLeft(tb) - widthChange / 2);
+                    Canvas.SetTop(tb, Canvas.GetTop(tb) - heightChange / 2);
+                }
+            }
+        }
+
 
         /*
          * window1_PreviewKeyDown
@@ -320,7 +371,5 @@ namespace Loreganizer
                 e.Handled = true;
             }
         }
-
-
     }
 }
