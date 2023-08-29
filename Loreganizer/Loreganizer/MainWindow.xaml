@@ -12,30 +12,43 @@
     <StackPanel x:Name="mainPanel">
         <!--  Header Grid  -->
         <DockPanel Background="LightGray">
-            <Button
-                Width="100"
-                BorderThickness="0"
-                Content="File"
-                Cursor="Hand" />
+            <Menu Background="LightGray" BorderThickness="0">
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid/>
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+                <MenuItem Width="100" BorderThickness="0">
+                    <MenuItem.Header>
+                    <TextBlock Text="File" HorizontalAlignment="Stretch" Margin="-7" Width="100" TextAlignment="Center"/>
+                    </MenuItem.Header>
+                    <MenuItem Header="New" Margin="0 0 -20 0"></MenuItem>
+                    <MenuItem Header="Open" Margin="0 0 -20 0" ></MenuItem>
+                    <MenuItem Header="Save" Margin="0 0 -20 0"></MenuItem>
+                </MenuItem>
+            </Menu>
             <Button
                 Width="100"
                 BorderThickness="0"
                 Click="TextBoxTool_Button_Click"
                 Content="Tools"
-                Cursor="Hand" />
+                Cursor="Hand"
+                Background="LightGray"/>
             <Button
                 Width="100"
                 BorderThickness="0"
                 Click="Pan_Button_Click"
                 Content="Pan"
-                Cursor="Hand" />
+                Cursor="Hand"
+                Background="LightGray"/>
 
             <Button
                 Width="100"
                 BorderThickness="0"
                 Click="Recenter_Button_Click"
                 Content="Recenter"
-                Cursor="Hand" />
+                Cursor="Hand"
+                Background="LightGray"/>
 
             <ComboBox
                 x:Name="scaleComboBox"
@@ -43,7 +56,8 @@
                 Cursor="Hand"
                 SelectedIndex="0"
                 SelectionChanged="ScaleComboBox_SelectionChanged" 
-                HorizontalAlignment="Left">
+                HorizontalAlignment="Left"
+                Background="LightGray">
                 <ComboBoxItem Content="Standard" />
                 <ComboBoxItem Content="Zoom In" />
                 <ComboBoxItem Content="Zoom Out" />
