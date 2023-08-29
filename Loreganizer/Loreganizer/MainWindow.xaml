@@ -11,7 +11,7 @@
     mc:Ignorable="d">
     <StackPanel x:Name="mainPanel">
         <!--  Header Grid  -->
-        <DockPanel Background="LightGray">
+        <DockPanel Background="LightGray" Panel.ZIndex="30">
             <Menu Background="LightGray" BorderThickness="0">
                 <Menu.ItemsPanel>
                     <ItemsPanelTemplate>
