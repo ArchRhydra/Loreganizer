@@ -11,37 +11,27 @@
     mc:Ignorable="d">
     <StackPanel x:Name="mainPanel">
         <!--  Header Grid  -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="2*" />
-            </Grid.ColumnDefinitions>
-
+        <DockPanel Background="LightGray">
             <Button
-                Grid.Column="0"
+                Width="100"
                 BorderThickness="0"
                 Content="File"
                 Cursor="Hand" />
             <Button
-                Grid.Column="1"
+                Width="100"
                 BorderThickness="0"
                 Click="TextBoxTool_Button_Click"
                 Content="Tools"
                 Cursor="Hand" />
-            <Rectangle Grid.Column="2" Fill="LightGray" />
             <Button
-                Grid.Column="2"
+                Width="100"
                 BorderThickness="0"
                 Click="Pan_Button_Click"
                 Content="Pan"
                 Cursor="Hand" />
 
             <Button
-                Grid.Column="3"
+                Width="100"
                 BorderThickness="0"
                 Click="Recenter_Button_Click"
                 Content="Recenter"
@@ -49,18 +39,16 @@
 
             <ComboBox
                 x:Name="scaleComboBox"
-                Grid.Column="4"
+                Width="100"
                 Cursor="Hand"
                 SelectedIndex="0"
-                SelectionChanged="ScaleComboBox_SelectionChanged">
+                SelectionChanged="ScaleComboBox_SelectionChanged" 
+                HorizontalAlignment="Left">
                 <ComboBoxItem Content="Standard" />
                 <ComboBoxItem Content="Zoom In" />
                 <ComboBoxItem Content="Zoom Out" />
             </ComboBox>
-
-
-            <Rectangle Grid.Column="5" Fill="LightGray" />
-        </Grid>
+        </DockPanel>
 
 
     </StackPanel>
