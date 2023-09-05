@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Loreganizer
 {
@@ -122,6 +123,22 @@ namespace Loreganizer
             }
             _fromCenter.X = 0;
             _fromCenter.Y = 0;
+        }
+
+        private void Save_Button_Click(object sender, RoutedEventArgs e)
+        {
+            UIElementCollection children = _contentCanvas.Children;
+            string path = @"c:\temp\Test.xml";
+            if (!File.Exists(path))
+            {
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                    foreach(UIElement child in children)
+                    {
+                        sw.WriteLine("There is a text box.");
+                    }
+                }
+            }
         }
 
         private void ScaleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

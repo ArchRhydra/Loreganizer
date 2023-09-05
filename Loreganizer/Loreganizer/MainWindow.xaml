@@ -24,7 +24,7 @@
                     </MenuItem.Header>
                     <MenuItem Header="New" Margin="0 0 -20 0"></MenuItem>
                     <MenuItem Header="Open" Margin="0 0 -20 0" ></MenuItem>
-                    <MenuItem Header="Save" Margin="0 0 -20 0"></MenuItem>
+                    <MenuItem Header="Save" Margin="0 0 -20 0" Click="Save_Button_Click"></MenuItem>
                 </MenuItem>
             </Menu>
             <Button
