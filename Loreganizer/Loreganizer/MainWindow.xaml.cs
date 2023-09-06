@@ -135,11 +135,22 @@ namespace Loreganizer
                 {
                     foreach(UIElement child in children)
                     {
-                        sw.WriteLine("There is a text box.");
+                        if (child.GetType().ToString().Equals("System.Windows.Controls.TextBox"))
+                        {
+                            TextBox tbTemp = (TextBox)child;
+                            sw.WriteLine("<tb>");
+                            sw.WriteLine("  <height>" + tbTemp.Height + "</height>");
+                            sw.WriteLine("  <width>" + tbTemp.Width + "</width>");
+                            sw.WriteLine("  <x>" + (Canvas.GetLeft(tbTemp) - _fromCenter.X) + "</x>");
+                            sw.WriteLine("  <y>" + (Canvas.GetTop(tbTemp) - _fromCenter.Y) + "</y>");
+                            sw.WriteLine("  <content>" + tbTemp.Text + "</content>");
+                            sw.WriteLine("</tb>");
+                        }
                     }
                 }
             }
         }
+
 
         private void ScaleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
