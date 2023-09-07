@@ -40,6 +40,7 @@ namespace Loreganizer
         private Point _startPoint;
         private Canvas? _contentCanvas;
         private TBAdorner _overlayElement;
+        private string _savePath; //null if file is not something opened from a save. Contains path otherwise.
 
 
         public MainWindow()
@@ -55,6 +56,8 @@ namespace Loreganizer
          */
         public void OnPageLoad(object sender, RoutedEventArgs e)
         {
+            this.Title = "Loreganizer";
+
             _contentCanvas = new Canvas();
             _contentCanvas.Height = 415;
             _contentCanvas.Background = new SolidColorBrush(Colors.White);
@@ -204,9 +207,10 @@ namespace Loreganizer
                     }
                     _contentCanvas.Children.Clear();
                     _overlayElement = null;
-                    //fileString = @"c:\temp\Test.xml";
                     LrgXmlReader lrgReader = new LrgXmlReader(fileString);
                     lrgReader.Read();
+                    _savePath = fileString;
+                    this.Title = "Loreganizer: " + _savePath;
                 }
             }
 
