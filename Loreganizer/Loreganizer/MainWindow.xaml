@@ -23,7 +23,7 @@
                     <TextBlock Text="File" HorizontalAlignment="Stretch" Margin="-7" Width="100" TextAlignment="Center"/>
                     </MenuItem.Header>
                     <MenuItem Header="New" Margin="0 0 -20 0"></MenuItem>
-                    <MenuItem Header="Open" Margin="0 0 -20 0" ></MenuItem>
+                    <MenuItem Header="Open" Margin="0 0 -20 0" Click="Open_Button_Click" ></MenuItem>
                     <MenuItem Header="Save" Margin="0 0 -20 0" Click="Save_Button_Click"></MenuItem>
                 </MenuItem>
             </Menu>

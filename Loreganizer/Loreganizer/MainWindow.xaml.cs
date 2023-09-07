@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Xml;
+using System.Configuration;
 
 namespace Loreganizer
 {
@@ -57,13 +59,6 @@ namespace Loreganizer
             _contentCanvas.Background = new SolidColorBrush(Colors.White);
             _currentScale = 1.0;
 
-            /* Block of code for having a text box placed upon opening
-            var tb = new TextBox { Text = "Dewit" };
-            Canvas.SetTop(tb, 0);
-            Canvas.SetLeft(tb, 0);
-            //_contentCanvas.Children.Add(tb);
-            */
-
             _contentCanvas.PreviewMouseLeftButtonDown += contentCanvas_PreviewMouseLeftButtonDown;
             _contentCanvas.PreviewMouseMove += contentCanvas_PreviewMouseMove;
             _contentCanvas.PreviewMouseLeftButtonUp += contentCanvas_PreviewMouseLeftButtonUp;
@@ -98,6 +93,30 @@ namespace Loreganizer
             _contentCanvas.Children.Add(textBox);
         }
 
+        /*
+         * TextBoxFromData
+         * Takes an array with height,width,x,y,content in that order to make a text box
+         */
+        public void DrawTextBoxFromData(String[] tbData)
+        {
+            // Create a new TextBox
+            TextBox textBox = new TextBox();
+
+            // Set dimensions and text alignment
+            textBox.Width = double.Parse(tbData[1]);
+            textBox.Height = double.Parse(tbData[0]);
+            textBox.TextAlignment = TextAlignment.Center;
+
+            // Set x and y
+            Canvas.SetLeft(textBox, double.Parse(tbData[2]));
+            Canvas.SetTop(textBox, double.Parse(tbData[3]));
+
+            // Set content
+            textBox.Text = tbData[4];
+
+            _contentCanvas.Children.Add(textBox);
+        }
+
         private void Pan_Button_Click(object sender, RoutedEventArgs e)
         {
             if (_panning)
@@ -128,29 +147,54 @@ namespace Loreganizer
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
             UIElementCollection children = _contentCanvas.Children;
-            string path = @"c:\temp\Test.xml";
+            string extension = ".xml";
+            string noExtPath = @"c:\temp\Test";
+            string path = noExtPath + extension;
+            if (File.Exists(path))
+            {
+                string tempPath = noExtPath + extension;
+                int nameNum = 1;
+                while (File.Exists(tempPath))
+                {
+                    tempPath = noExtPath;
+                    tempPath = tempPath + nameNum + extension;
+                    nameNum++;
+                }
+                path = tempPath;
+            }
             if (!File.Exists(path))
             {
                 using (StreamWriter sw = File.CreateText(path))
                 {
+                    sw.WriteLine("<lrg>");
                     foreach(UIElement child in children)
                     {
                         if (child.GetType().ToString().Equals("System.Windows.Controls.TextBox"))
                         {
                             TextBox tbTemp = (TextBox)child;
-                            sw.WriteLine("<tb>");
-                            sw.WriteLine("  <height>" + tbTemp.Height + "</height>");
-                            sw.WriteLine("  <width>" + tbTemp.Width + "</width>");
-                            sw.WriteLine("  <x>" + (Canvas.GetLeft(tbTemp) - _fromCenter.X) + "</x>");
-                            sw.WriteLine("  <y>" + (Canvas.GetTop(tbTemp) - _fromCenter.Y) + "</y>");
-                            sw.WriteLine("  <content>" + tbTemp.Text + "</content>");
-                            sw.WriteLine("</tb>");
+                            sw.WriteLine("  <tb>");
+                            sw.WriteLine("    <height>" + tbTemp.Height + "</height>");
+                            sw.WriteLine("    <width>" + tbTemp.Width + "</width>");
+                            sw.WriteLine("    <x>" + (Canvas.GetLeft(tbTemp) - _fromCenter.X) + "</x>");
+                            sw.WriteLine("    <y>" + (Canvas.GetTop(tbTemp) - _fromCenter.Y) + "</y>");
+                            sw.WriteLine("    <content>" + tbTemp.Text + "</content>");
+                            sw.WriteLine("  </tb>");
                         }
                     }
+                    sw.WriteLine("</lrg>");
                 }
             }
         }
 
+
+        private void Open_Button_Click(object sender, RoutedEventArgs e)
+        {
+            _contentCanvas.Children.Clear();
+            _overlayElement = null;
+            string fileString = @"c:\temp\Test.xml";
+            LrgXmlReader lrgReader = new LrgXmlReader(fileString);
+            lrgReader.Read();
+        }
 
         private void ScaleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
