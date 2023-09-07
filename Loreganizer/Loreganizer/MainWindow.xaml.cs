@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Xml;
 using System.Configuration;
+using Microsoft.Win32;
 
 namespace Loreganizer
 {
@@ -189,12 +190,26 @@ namespace Loreganizer
 
         private void Open_Button_Click(object sender, RoutedEventArgs e)
         {
-            AdornerLayer.GetAdornerLayer(_overlayElement.AdornedElement).Remove(_overlayElement);
-            _contentCanvas.Children.Clear();
-            _overlayElement = null;
-            string fileString = @"c:\temp\Test.xml";
-            LrgXmlReader lrgReader = new LrgXmlReader(fileString);
-            lrgReader.Read();
+            string fileString;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if(openFileDialog.ShowDialog() == true)
+            {
+                string path = openFileDialog.FileName;
+                if (path.Substring(path.Length - 4).Equals(".xml"))
+                {
+                    fileString = path;
+                    if (_overlayElement != null)
+                    {
+                        AdornerLayer.GetAdornerLayer(_overlayElement.AdornedElement).Remove(_overlayElement);
+                    }
+                    _contentCanvas.Children.Clear();
+                    _overlayElement = null;
+                    //fileString = @"c:\temp\Test.xml";
+                    LrgXmlReader lrgReader = new LrgXmlReader(fileString);
+                    lrgReader.Read();
+                }
+            }
+
         }
 
         private void ScaleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -273,7 +288,7 @@ namespace Loreganizer
 
             }
             //if mouse release is not coming off of a drag, it is a click
-            else if (!_isDragging && !_isCanvas && !_panning)
+            else if (!_isDragging && !_isCanvas && !_panning && AdornerLayer.GetAdornerLayer(_originalElement) != null)
             {
                 //if there is an adorner already, remove it first
                 if (_overlayElement != null)
