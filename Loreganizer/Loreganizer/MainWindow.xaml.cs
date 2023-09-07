@@ -189,6 +189,7 @@ namespace Loreganizer
 
         private void Open_Button_Click(object sender, RoutedEventArgs e)
         {
+            AdornerLayer.GetAdornerLayer(_overlayElement.AdornedElement).Remove(_overlayElement);
             _contentCanvas.Children.Clear();
             _overlayElement = null;
             string fileString = @"c:\temp\Test.xml";
@@ -272,7 +273,7 @@ namespace Loreganizer
 
             }
             //if mouse release is not coming off of a drag, it is a click
-            else if (!_isDragging && !_isCanvas)
+            else if (!_isDragging && !_isCanvas && !_panning)
             {
                 //if there is an adorner already, remove it first
                 if (_overlayElement != null)
