@@ -150,46 +150,52 @@ namespace Loreganizer
 
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
-            UIElementCollection children = _contentCanvas.Children;
-            string extension = ".xml";
-            string noExtPath = @"c:\temp\Test";
-            string path = noExtPath + extension;
-            if (File.Exists(path))
+            if (_savePath == null) //if current file is not a save, use the save as feature
             {
-                string tempPath = noExtPath + extension;
-                int nameNum = 1;
-                while (File.Exists(tempPath))
-                {
-                    tempPath = noExtPath;
-                    tempPath = tempPath + nameNum + extension;
-                    nameNum++;
-                }
-                path = tempPath;
+                Save_As_Button_Click(sender, e);
             }
-            if (!File.Exists(path))
+            else                   //otherwise save already exists, so just overwrite it
             {
-                using (StreamWriter sw = File.CreateText(path))
-                {
-                    sw.WriteLine("<lrg>");
-                    foreach(UIElement child in children)
-                    {
-                        if (child.GetType().ToString().Equals("System.Windows.Controls.TextBox"))
-                        {
-                            TextBox tbTemp = (TextBox)child;
-                            sw.WriteLine("  <tb>");
-                            sw.WriteLine("    <height>" + tbTemp.Height + "</height>");
-                            sw.WriteLine("    <width>" + tbTemp.Width + "</width>");
-                            sw.WriteLine("    <x>" + (Canvas.GetLeft(tbTemp) - _fromCenter.X) + "</x>");
-                            sw.WriteLine("    <y>" + (Canvas.GetTop(tbTemp) - _fromCenter.Y) + "</y>");
-                            sw.WriteLine("    <content>" + tbTemp.Text + "</content>");
-                            sw.WriteLine("  </tb>");
-                        }
-                    }
-                    sw.WriteLine("</lrg>");
-                }
+                SaveToXml(_savePath);
             }
         }
 
+        private void Save_As_Button_Click(object sender, RoutedEventArgs e)
+        {
+            string fileString;
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.DefaultExt = ".xml";
+            if ((bool)saveFileDialog.ShowDialog())
+            {
+                fileString = saveFileDialog.FileName;
+                SaveToXml(fileString);
+            }
+        }
+
+        private void SaveToXml(string path)
+        {
+            UIElementCollection children = _contentCanvas.Children;
+            using (StreamWriter sw = File.CreateText(path))
+            {
+                sw.WriteLine("<lrg>");
+                foreach (UIElement child in children)
+                {
+                    if (child.GetType().ToString().Equals("System.Windows.Controls.TextBox"))
+                    {
+                        TextBox tbTemp = (TextBox)child;
+                        sw.WriteLine("  <tb>");
+                        sw.WriteLine("    <height>" + tbTemp.Height + "</height>");
+                        sw.WriteLine("    <width>" + tbTemp.Width + "</width>");
+                        sw.WriteLine("    <x>" + (Canvas.GetLeft(tbTemp) - _fromCenter.X) + "</x>");
+                        sw.WriteLine("    <y>" + (Canvas.GetTop(tbTemp) - _fromCenter.Y) + "</y>");
+                        sw.WriteLine("    <content>" + tbTemp.Text + "</content>");
+                        sw.WriteLine("  </tb>");
+                    }
+                }
+                sw.WriteLine("</lrg>");
+            }
+
+        }
 
         private void Open_Button_Click(object sender, RoutedEventArgs e)
         {
