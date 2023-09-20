@@ -58,7 +58,7 @@ namespace Loreganizer
         {
             this.Title = "Loreganizer";
 
-            _contentCanvas = new Canvas();
+            _contentCanvas = canvas;
             _contentCanvas.Height = 100000;
             _contentCanvas.Width = 100000;
             _contentCanvas.Background = new SolidColorBrush(Colors.White);
@@ -69,7 +69,8 @@ namespace Loreganizer
             _contentCanvas.PreviewMouseLeftButtonUp += contentCanvas_PreviewMouseLeftButtonUp;
             PreviewKeyDown += window1_PreviewKeyDown;
 
-            mainPanel.Children.Add(_contentCanvas);
+            //mainPanel.Children.Add(_contentCanvas);
+            sideGrid.Height = 200;
         }
 
         /*
