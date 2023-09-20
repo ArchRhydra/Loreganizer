@@ -59,7 +59,8 @@ namespace Loreganizer
             this.Title = "Loreganizer";
 
             _contentCanvas = new Canvas();
-            _contentCanvas.Height = 415;
+            _contentCanvas.Height = 100000;
+            _contentCanvas.Width = 100000;
             _contentCanvas.Background = new SolidColorBrush(Colors.White);
             _currentScale = 1.0;
 
@@ -85,13 +86,9 @@ namespace Loreganizer
             textBox.Height = 30;
             textBox.TextAlignment = TextAlignment.Center;
 
-            // Calculate the center of the Canvas
-            double centerX = _contentCanvas.ActualWidth / 2;
-            double centerY = _contentCanvas.ActualHeight / 2;
-
-            // Set location of TextBox to center of canvas
-            Canvas.SetLeft(textBox, centerX - textBox.Width / 2);
-            Canvas.SetTop(textBox, centerY - textBox.Height / 2);
+            // Set location of TextBox to near top left of current window
+            Canvas.SetLeft(textBox, 100);
+            Canvas.SetTop(textBox, 100);
 
             // Add TextBox to Canvas
             _contentCanvas.Children.Add(textBox);
