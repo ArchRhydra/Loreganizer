@@ -9,9 +9,9 @@
     Width="800"
     Height="450"
     mc:Ignorable="d">
-    <StackPanel x:Name="mainPanel">
+    <Grid x:Name="mainPanel">
         <!--  Header Grid  -->
-        <DockPanel Background="LightGray" Panel.ZIndex="30">
+        <DockPanel Background="LightGray" Panel.ZIndex="30" Height="20" VerticalAlignment="Top">
             <Menu Background="LightGray" BorderThickness="0">
                 <Menu.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -31,7 +31,7 @@
             <Button
                 Width="100"
                 BorderThickness="0"
-                Click="TextBoxTool_Button_Click"
+                Click="Tools_Button_Click"
                 Content="Tools"
                 Cursor="Hand"
                 Background="LightGray"/>
@@ -66,5 +66,16 @@
         </DockPanel>
 
 
-    </StackPanel>
+        <Canvas x:Name="canvas" Width="10000" Height="10000"></Canvas>
+        <Grid Width="10000" Height="10000" HorizontalAlignment="Left" Panel.ZIndex="5" x:Name="sideGrid" VerticalAlignment="Top" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="textBoxButton" Panel.ZIndex="1" Margin="0,0,0,0" BorderThickness="1" BorderBrush="Black" Grid.Column="1" Height="30" VerticalAlignment="Top" Background="CadetBlue" Click="TextBoxTool_Button_Click">
+                Text Box
+            </Button>
+            <Rectangle Grid.Column="1" Fill="CadetBlue" Panel.ZIndex="0" Margin="0 0 0 -10000"></Rectangle>
+        </Grid>
+
+    </Grid>
 </Window>
