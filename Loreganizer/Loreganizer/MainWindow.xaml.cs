@@ -95,6 +95,18 @@ namespace Loreganizer
             _contentCanvas.Children.Add(textBox);
         }
 
+        private void Tools_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(sideGrid.Visibility == Visibility.Visible)
+            {
+                sideGrid.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                sideGrid.Visibility = Visibility.Visible;
+            }
+        }
+
         /*
          * TextBoxFromData
          * Takes an array with height,width,x,y,content in that order to make a text box
