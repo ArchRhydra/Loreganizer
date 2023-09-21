@@ -67,7 +67,7 @@
 
 
         <Canvas x:Name="canvas" Width="10000" Height="10000"></Canvas>
-        <Grid Width="10000" Height="10000" HorizontalAlignment="Left" Panel.ZIndex="5" x:Name="sideGrid" VerticalAlignment="Top" Margin="0,20,0,0">
+        <Grid Width="10000" Height="10000" HorizontalAlignment="Left" Panel.ZIndex="5" x:Name="sideGrid" VerticalAlignment="Top" Margin="0,20,0,0" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="70"/>
             </Grid.ColumnDefinitions>
