@@ -340,6 +340,10 @@ namespace Loreganizer
                 _overlayElement = new TBAdorner(_originalElement);
                 var layer = AdornerLayer.GetAdornerLayer(_originalElement);
                 layer.Add(_overlayElement);
+                if(_originalElement.GetType().ToString().Equals("System.Windows.Controls.TextBox"))
+                {
+                    _originalElement.Focus();
+                }
 
             }
 
@@ -479,6 +483,7 @@ namespace Loreganizer
                     AdornerLayer.GetAdornerLayer(_overlayElement.AdornedElement).Remove(_overlayElement);
                     _isCanvas = true;
                 }
+                Keyboard.ClearFocus();
                 if (_panning)
                 {
                     _isDown = true;
