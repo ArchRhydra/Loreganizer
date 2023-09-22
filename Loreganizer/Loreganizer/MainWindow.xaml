@@ -71,10 +71,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="70"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="textBoxButton" Panel.ZIndex="1" Margin="0,0,0,0" BorderThickness="1" BorderBrush="Black" Grid.Column="1" Height="30" VerticalAlignment="Top" Background="CadetBlue" Click="TextBoxTool_Button_Click">
+            <Button x:Name="textBoxButton" Panel.ZIndex="1" Margin="0,0,0,0" BorderThickness="1" BorderBrush="Black" Grid.Column="1" Height="30" VerticalAlignment="Top" Background="LightGray" Click="TextBoxTool_Button_Click">
                 Text Box
             </Button>
-            <Rectangle Grid.Column="1" Fill="CadetBlue" Panel.ZIndex="0" Margin="0 0 0 -10000"></Rectangle>
+            <Rectangle Grid.Column="1" Fill="LightGray" Panel.ZIndex="0" Margin="0 0 0 -10000"></Rectangle>
         </Grid>
 
     </Grid>
