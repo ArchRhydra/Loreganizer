@@ -280,6 +280,23 @@ namespace Loreganizer
             }
         }
 
+        private void Fill_Color_Button_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Border_Color_Button_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Text_Color_Button_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Canvas_Color_Button_Clicked(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
 
         /*
          * window1_PreviewKeyDown

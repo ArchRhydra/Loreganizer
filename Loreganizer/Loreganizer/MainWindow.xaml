@@ -35,6 +35,22 @@
                 Content="Tools"
                 Cursor="Hand"
                 Background="LightGray"/>
+            <Menu Background="LightGray" BorderThickness="0">
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid/>
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+                <MenuItem Width="100" BorderThickness="0">
+                    <MenuItem.Header>
+                        <TextBlock Text="Format" HorizontalAlignment="Stretch" Margin="-7" Width="100" TextAlignment="Center"/>
+                    </MenuItem.Header>
+                    <MenuItem Header="Fill Color" x:Name="fillColorButton" Margin="0 0 -20 0" Click="Fill_Color_Button_Clicked"></MenuItem>
+                    <MenuItem Header="Border Color" x:Name="borderColorButton" Margin="0 0 -20 0" Click="Border_Color_Button_Clicked" ></MenuItem>
+                    <MenuItem Header="Text Color" x:Name="textColorButton" Margin="0 0 -20 0" Click="Text_Color_Button_Clicked"></MenuItem>
+                    <MenuItem Header="Canvas Color" x:Name="canvasColorButton" Margin="0 0 -20 0" Click="Canvas_Color_Button_Clicked"></MenuItem>
+                </MenuItem>
+            </Menu>
             <Button
                 Width="100"
                 BorderThickness="0"
