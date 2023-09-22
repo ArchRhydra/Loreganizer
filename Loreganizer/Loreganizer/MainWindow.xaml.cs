@@ -223,6 +223,8 @@ namespace Loreganizer
                     }
                     _contentCanvas.Children.Clear();
                     _overlayElement = null;
+                    _fromCenter.X = 0;
+                    _fromCenter.Y = 0;
                     LrgXmlReader lrgReader = new LrgXmlReader(fileString);
                     lrgReader.Read();
                     _savePath = fileString;
